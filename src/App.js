@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Dynamic msg output</h1>
+      <div>
+        <Component />
+      </div>
     </div>
   );
 }
 
-export default App;
+
+function Component() {
+  const [username, setUsername] = useState("");
+  const [list, setList] = useState([]);
+
+  let userVal = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const clickme = () => {
+    setList([username, ...list]);
+    setUsername("");
+  };
+
+  return (<div>
+    <div>
+      <input type="text" placeholder='Entre username...' value={username} onChange={userVal} />
+    </div>
+    <div>
+      <input type='button' value="Click" onClick={clickme} />
+    </div>
+    <div> {list.map((item) => (<div>{item} </div>))} </div>
+  </div>);
+
+}
